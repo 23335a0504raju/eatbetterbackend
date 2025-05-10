@@ -13,7 +13,7 @@ const Cart = ({ onClose }) => {
 
   const fetchCart = async () => {
     try {
-      const res = await axios.get(`http://localhost:1000/api/cart/${userId}`);
+      const res = await axios.get(`https://eatbetterbackend.onrender.com/api/cart/${userId}`);
       setCartItems(res.data.items || []);
     } catch (err) {
       console.error('Error fetching cart:', err);
