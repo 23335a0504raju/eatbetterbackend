@@ -20,12 +20,14 @@ router.post('/create-order', async (req, res) => {
     }
 
     const options = {
-      amount: amount,
+      amount: amount * 100, // Razorpay expects the amount in paise, so multiply by 100
       currency: 'INR',
       receipt: `receipt_${Date.now()}`,
     };
 
     const order = await razorpay.orders.create(options);
+
+    // Send the order ID to the frontend to use in the payment process
     res.json(order);
 
   } catch (error) {
@@ -40,7 +42,8 @@ router.post('/verify', async (req, res) => {
     const {
       razorpay_order_id,
       razorpay_payment_id,
-      razorpay_signature
+      razorpay_signature,
+      amount
     } = req.body;
 
     const generatedSignature = crypto
@@ -51,11 +54,11 @@ router.post('/verify', async (req, res) => {
     if (generatedSignature === razorpay_signature) {
       // ✅ Save payment details in DB
       const payment = new Payment({
-        orderId: null, // Replace with actual order ID if available
+        orderId: razorpay_order_id, // Save the actual Razorpay order ID
         razorpayPaymentId: razorpay_payment_id,
         razorpayOrderId: razorpay_order_id,
         razorpaySignature: razorpay_signature,
-        amount: req.body.amount || 0,
+        amount: amount || 0, // Amount from the request body
         status: 'completed',
       });
 
