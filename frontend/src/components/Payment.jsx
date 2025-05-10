@@ -43,7 +43,7 @@ const Payment = ({ totalAmount, orderId, onSuccess, onCancel }) => {
         return;
       }
 
-      const orderResponse = await axios.post('http://localhost:1000/api/payment/create-order', {
+      const orderResponse = await axios.post('https://eatbetterbackend.onrender.com/api/payment/create-order', {
         amount: totalAmount * 100,
       });
 
@@ -64,7 +64,7 @@ const Payment = ({ totalAmount, orderId, onSuccess, onCancel }) => {
         order_id: razorpayOrderId,
         handler: async function (response) {
           try {
-            const verifyResponse = await axios.post('http://localhost:1000/api/payment/verify', {
+            const verifyResponse = await axios.post('https://eatbetterbackend.onrender.com/api/payment/verify', {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_order_id: response.razorpay_order_id,
               razorpay_signature: response.razorpay_signature,
