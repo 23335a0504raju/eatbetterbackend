@@ -12,7 +12,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get('http://localhost:1000/api/product');
+        const res = await axios.get('https://eatbetterbackend.onrender.com/api/product');
         // Only take the first three products
         setProducts(res.data.slice(0, 3));
         setLoading(false);
@@ -28,7 +28,7 @@ const Products = () => {
 
   const addToCart = async (productId) => {
     try {
-      await axios.post(`http://localhost:1000/api/cart/${userId}`, {
+      await axios.post(`https://eatbetterbackend.onrender.com/api/cart/${userId}`, {
         productId,
         quantity: 1,
       });
