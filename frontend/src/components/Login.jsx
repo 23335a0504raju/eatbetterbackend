@@ -26,7 +26,7 @@ const Login = () => {
     setError('');
     
     try {
-      const response = await fetch('http://localhost:1000/api/auth/login', {
+      const response = await fetch('https://eatbetterbackend.onrender.com/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ const Login = () => {
     setError('');
     
     try {
-      const response = await fetch('http://localhost:1000/api/auth/google', {
+      const response = await fetch('https://eatbetterbackend.onrender.com/api/auth/google', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
