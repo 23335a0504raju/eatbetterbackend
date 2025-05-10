@@ -24,7 +24,7 @@ const Cart = ({ onClose }) => {
 
   const removeFromCart = async (productId) => {
     try {
-      await axios.delete(`http://localhost:1000/api/cart/${userId}/${productId}`);
+      await axios.delete(`https://eatbetterbackend.onrender.com/api/cart/${userId}/${productId}`);
       fetchCart();
     } catch (err) {
       console.error('Error removing item:', err);
@@ -33,7 +33,7 @@ const Cart = ({ onClose }) => {
 
   const clearCart = async () => {
     try {
-      await axios.delete(`http://localhost:1000/api/cart/${userId}`);
+      await axios.delete(`https://eatbetterbackend.onrender.com/api/cart/${userId}`);
       setCartItems([]);
     } catch (err) {
       console.error('Error clearing cart:', err);
@@ -45,7 +45,7 @@ const Cart = ({ onClose }) => {
     setTotalAmount(total);
 
     try {
-      const orderResponse = await axios.post('http://localhost:1000/api/payment/create-order', {
+      const orderResponse = await axios.post('https://eatbetterbackend.onrender.com/api/payment/create-order', {
         amount: total * 100,
       });
       setOrderId(orderResponse.data.id);
@@ -203,7 +203,7 @@ export default Cart;
 
 //   const fetchCart = async () => {
 //     try {
-//       const res = await axios.get(`http://localhost:1000/api/cart/${userId}`);
+//       const res = await axios.get(`https://eatbetterbackend.onrender.com/api/cart/${userId}`);
 //       setCartItems(res.data.items || []);
 //     } catch (err) {
 //       console.error('Error fetching cart:', err);
