@@ -13,7 +13,7 @@ const BestSellers = () => {
   useEffect(() => {
     const fetchBestSellers = async () => {
       try {
-        const res = await axios.get('http://localhost:1000/api/product/bestsellers');
+        const res = await axios.get('https://eatbetterbackend.onrender.com/api/product/bestsellers');
         setBestSellers(res.data);
       } catch (err) {
         console.error('Error fetching best sellers:', err);
