@@ -1,0 +1,133 @@
+.story {
+    padding: 4rem 0;
+    background-color: #fff;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .mainTitle {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #4a4a4a;
+    margin-bottom: 3rem;
+  }
+  
+  .videoSection {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background: linear-gradient(45deg, #ff6b00, #ff8c00);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+  
+  .videoContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 2;
+  }
+  
+  .brandLogo {
+    width: 200px;
+    margin: 0 auto 2rem;
+  }
+  
+  .brandLogo img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .founderInfo {
+    margin-top: 2rem;
+  }
+  
+  .founderName {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .founderTitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .deliverySection {
+    text-align: center;
+    padding: 2rem 0;
+  }
+  
+  .deliveryTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #4a4a4a;
+    margin-bottom: 2rem;
+  }
+  
+  .deliveryPartners {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  
+  .deliveryPartners img {
+    height: 200px;
+    width: 150px;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    border-radius: 8px; /* Optional: rounded edges */
+  }
+  
+  .deliveryPartners img:hover {
+    transform: scale(1.1);         /* Zoom in slightly */
+    filter: brightness(1.15);      /* Slightly brighter */
+    /* No box-shadow */
+  }
+  
+  
+  @media (max-width: 768px) {
+    .videoSection {
+      height: 400px;
+    }
+  
+    .title {
+      font-size: 2rem;
+    }
+  
+    .founderName {
+      font-size: 1.5rem;
+    }
+  
+    .deliveryPartners {
+      gap: 2rem;
+    }
+  
+    .deliveryPartners img {
+      height: 30px;
+    }
+  }
