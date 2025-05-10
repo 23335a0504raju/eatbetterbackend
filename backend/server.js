@@ -6,19 +6,21 @@ require('dotenv').config();
 const seedProduct = require('./utils/seedProduct');
 
 const app = express();
-const PORT = process.env.PORT || 1000;
+const PORT = process.env.PORT || 10000; // You had 1000 earlier—your Render log shows 10000, so keep it consistent
 
-// Middleware
+// ✅ CORS Setup — Allow Vercel Frontend to Access This Backend
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['https://eatbetterbackend.vercel.app', 'http://localhost:3000'], // Vercel + Dev local
   credentials: true
 }));
+
+// Middleware
 app.use(express.json());
 
-// Serve static images
+// ✅ Serve Static Images (like product images)
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// Routes
+// ✅ Routes
 const authRoutes = require('./routes/auth');
 const contactRoutes = require('./routes/contact');
 const productRoutes = require('./routes/product');
@@ -31,15 +33,15 @@ app.use('/api/product', productRoutes);
 app.use('/api', cartRoutes);
 app.use('/api/payment', paymentRoutes);
 
-// Connect MongoDB first, then start server
+// ✅ MongoDB Connection and Server Start
 mongoose.connect(process.env.MONGO_URI)
   .then(async () => {
     console.log('✅ MongoDB connected successfully');
 
-    // Seed data
+    // Seed Products (if needed)
     await seedProduct();
 
-    // Start server
+    // Start Server
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
@@ -49,7 +51,7 @@ mongoose.connect(process.env.MONGO_URI)
     process.exit(1);
   });
 
-// Error handling
+// ✅ Global Error Handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
@@ -58,7 +60,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handling
+// ✅ 404 Handler
 app.use((req, res) => {
   res.status(404).json({
     success: false,
