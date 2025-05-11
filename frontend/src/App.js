@@ -1,5 +1,4 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import About from './components/About';
 import BestSellers from './components/BestSellers';
@@ -14,13 +13,13 @@ import Navbar from './components/Navbar';
 import Products from './components/Products';
 import ProductSection from './components/ProductSection';
 import Register from './components/Register';
-import SearchPage from './components/SearchPage';
+import SearchPage from './components/SearchPage'; // ✅ Import the SearchPage
 import Snakgrid from './components/Snakgrid';
 import Story from './components/Story';
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
+    <GoogleOAuthProvider clientId="1084415150873-airlmdfru4v2p1oobhtv17eqgvo8p525.apps.googleusercontent.com">
       <Router>
         <div className="App">
           <Navbar />
@@ -44,8 +43,8 @@ function App() {
             <Route path="/category/:categoryName" element={<CategoryPage />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/contactus" element={<ContactUs/>} /> 
+            <Route path="/search" element={<SearchPage />} /> 
+            <Route path="/contact" element={<ContactUs/>} /> 
           </Routes>
         </div>
       </Router>
