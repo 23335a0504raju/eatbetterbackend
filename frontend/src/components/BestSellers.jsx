@@ -44,7 +44,7 @@ const BestSellers = () => {
     setShowAll(true);
   };
 
-  if (loading) return <p className={styles.loading}>Loading best sellers.</p>;
+  if (loading) return <p className={styles.loading}>Loading the best sellers.</p>;
   if (error) return <p className={styles.error}>{error}</p>;
 
   return (
