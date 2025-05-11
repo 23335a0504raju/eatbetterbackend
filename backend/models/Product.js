@@ -50,4 +50,15 @@ const productSchema = new mongoose.Schema({
   }
 });
 
+// Add a static method to your Product schema for searching
+productSchema.statics.searchProducts = function(query) {
+  return this.find({
+    $or: [
+      { name: { $regex: query, $options: 'i' } },
+      { description: { $regex: query, $options: 'i' } },
+      { category: { $regex: query, $options: 'i' } }
+    ]
+  });
+};
+
 module.exports = mongoose.model('Product', productSchema);
