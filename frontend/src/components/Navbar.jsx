@@ -1,6 +1,6 @@
 import { faBars, faSearch, faShoppingCart, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Navbar.module.css';
 import Cart from './Cart';
@@ -17,6 +17,9 @@ const Navbar = () => {
     navigate('/register');
   };
 
+ const handleContactClick = () => {
+    navigate('/contact');
+  };
   const handleLoginClick = () => {
     navigate('/login');
   };
@@ -84,7 +87,7 @@ const Navbar = () => {
 
             <div className={styles.mainNav}>
               <a href="#story" className={styles.link}>OUR STORY</a>
-              <a href="#contact" className={styles.link}>CONTACT US</a>
+              <a href="#contact" onClick={handleContactClick} className={styles.link}>CONTACT US</a>
             </div>
 
             <div className={styles.navIcons}>
