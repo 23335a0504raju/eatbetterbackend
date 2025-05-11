@@ -13,7 +13,7 @@ import Navbar from './components/Navbar';
 import Products from './components/Products';
 import ProductSection from './components/ProductSection';
 import Register from './components/Register';
-import SearchPage from './components/SearchPage'; // ✅ Import the SearchPage
+import SearchPage from './components/SearchPage'; 
 import Snakgrid from './components/Snakgrid';
 import Story from './components/Story';
 
