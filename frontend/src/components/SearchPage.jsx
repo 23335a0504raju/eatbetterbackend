@@ -1,121 +1,110 @@
-import { faBars, faSearch, faShoppingCart, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styles from '../styles/Navbar.module.css';
-import Cart from './Cart';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
+import searchStyles from '../styles/SearchPage.module.css';
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
+const SearchPage = () => {
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const location = useLocation();
+  const searchQuery = new URLSearchParams(location.search).get('q');
 
-  const handleRegisterClick = () => {
-    navigate('/register');
-  };
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (!searchQuery) return;
+      
+      setLoading(true);
+      setError(null);
+      
+      try {
+        const response = await axios.get(`https://eatbetterbackend.onrender.com/api/product/search?q=${encodeURIComponent(searchQuery)}`);
+        setSearchResults(response.data);
+      } catch (err) {
+        console.error('Error fetching search results:', err);
+        setError('Failed to fetch search results. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleLoginClick = () => {
-    navigate('/login');
-  };
+    fetchSearchResults();
+  }, [searchQuery]);
 
-  const handleCartClick = () => {
-    setIsCartOpen(!isCartOpen);
-  };
-
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-      setSearchQuery('');
+  const addToCart = async (productId) => {
+    try {
+      await axios.post(`https://eatbetterbackend.onrender.com/api/cart/user123`, {
+        productId,
+        quantity: 1
+      });
+      alert('Product added to cart!');
+    } catch (err) {
+      console.error('Error adding to cart:', err);
+      alert('Failed to add product to cart.');
     }
   };
 
-  return (
-    <>
-      <div className={styles.announcement}>
-        <p>FREE SHIPPING on orders above Rs 399</p>
+  if (loading) {
+    return (
+      <div className={searchStyles.loadingContainer}>
+        <div className={searchStyles.loader}></div>
+        <p>Searching for products...</p>
       </div>
-      <nav className={styles.navbar}>
-        <div className={styles.container}>
-          <div className={styles.navContent}>
-            
-            {/* Search Box */}
-            <div className={styles.searchBox}>
-              <input
-                type="text"
-                placeholder="Search..."
-                className={styles.searchInput}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleSearch();
-                }}
-              />
-              <button className={styles.searchButton} onClick={handleSearch}>
-                <FontAwesomeIcon icon={faSearch} />
-              </button>
-            </div>
+    );
+  }
 
-            <div className={styles.mainNav}>
-              <a href="#bestseller" className={styles.link}>BESTSELLERS</a>
-              <div className={styles.shopDropdown}>
-                <a href="#features" className={styles.link}>SHOP</a>
+  if (error) {
+    return (
+      <div className={searchStyles.errorContainer}>
+        <h2>Oops! Something went wrong</h2>
+        <p>{error}</p>
+        <button className={searchStyles.retryButton} onClick={() => window.location.reload()}>
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  if (!searchResults.length) {
+    return (
+      <div className={searchStyles.noResults}>
+        <h2>No products found</h2>
+        <p>We couldn't find any products matching "{searchQuery}"</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className={searchStyles.searchPage}>
+      <div className={searchStyles.searchHeader}>
+        <h1>Search Results</h1>
+        <p>Found {searchResults.length} products for "{searchQuery}"</p>
+      </div>
+
+      <div className={searchStyles.searchResults}>
+        {searchResults.map((product) => (
+          <div key={product._id} className={searchStyles.productCard}>
+            <div className={searchStyles.imageContainer}>
+              <img src={product.imageUrl} alt={product.name} />
+            </div>
+            <div className={searchStyles.productInfo}>
+              <h3>{product.name}</h3>
+              <p className={searchStyles.description}>{product.description}</p>
+              <div className={searchStyles.priceRow}>
+                <span className={searchStyles.price}>₹{product.price}</span>
+                <button 
+                  className={searchStyles.addToCartBtn}
+                  onClick={() => addToCart(product._id)}
+                >
+                  Add to Cart
+                </button>
               </div>
-            </div>
-
-            <div className={styles.logo}>
-              <img src="/images/logo.svg" alt="EatBetter" />
-            </div>
-
-            <div className={styles.mainNav}>
-              <a href="#story" className={styles.link}>OUR STORY</a>
-              <a href="#contact" className={styles.link}>CONTACT US</a>
-            </div>
-
-            <div className={styles.navIcons}>
-              <div className={styles.userIconWrapper}>
-                <FontAwesomeIcon
-                  icon={faUser}
-                  className={styles.icon}
-                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                />
-                {isUserMenuOpen && (
-                  <div className={styles.userDropdown}>
-                    <button onClick={handleRegisterClick} className={styles.dropdownLink}>Register</button>
-                    <button onClick={handleLoginClick} className={styles.dropdownLink}>Login</button>
-                  </div>
-                )}
-              </div>
-              <FontAwesomeIcon 
-                icon={faShoppingCart} 
-                className={styles.icon} 
-                onClick={handleCartClick}
-              />
-            </div>
-
-            <div className={styles.mobileMenuButton}>
-              <button onClick={() => setIsOpen(!isOpen)}>
-                <FontAwesomeIcon icon={isOpen ? faTimes : faBars} />
-              </button>
             </div>
           </div>
-
-          {isOpen && (
-            <div className={styles.mobileMenu}>
-              <div className={styles.mobileMenuLinks}>
-                <a href="#bestseller">BESTSELLERS</a>
-                <a href="#features">SHOP</a>
-                <a href="#story">OUR STORY</a>
-                <a href="#contact">CONTACT US</a>
-              </div>
-            </div>
-          )}
-        </div>
-      </nav>
-      {isCartOpen && <Cart onClose={() => setIsCartOpen(false)} />}
-    </>
+        ))}
+      </div>
+    </div>
   );
 };
 
-export default Navbar;
+export default SearchPage;
