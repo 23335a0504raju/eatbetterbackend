@@ -1,18 +1,18 @@
 .searchPage {
-  max-width: 1200px;
+  padding: 2rem;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 20px;
 }
 
 .searchHeader {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 3rem;
 }
 
 .searchHeader h1 {
   font-size: 2.5rem;
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
 }
 
 .searchHeader p {
@@ -22,34 +22,30 @@
 
 .searchResults {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 30px;
-  padding: 20px 0;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
 }
 
 .productCard {
   background: white;
   border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .productCard:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
 .imageContainer {
-  position: relative;
-  padding-top: 75%;
+  height: 250px;
   overflow: hidden;
 }
 
 .imageContainer img {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -61,22 +57,22 @@
 }
 
 .productInfo {
-  padding: 20px;
+  padding: 1.5rem;
 }
 
 .productInfo h3 {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: #333;
-  margin-bottom: 10px;
-  font-weight: 500;
+  margin-bottom: 0.75rem;
 }
 
 .description {
   color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 15px;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -85,44 +81,45 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 1rem;
 }
 
 .price {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+  font-weight: bold;
   color: #ff6b35;
-  font-weight: 600;
 }
 
 .addToCartBtn {
-  background: #ff6b35;
+  background-color: #ff6b35;
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 0.9rem;
   transition: all 0.3s ease;
 }
 
 .addToCartBtn:hover {
-  background: #ff5a1f;
-  transform: translateY(-2px);
+  background-color: #e35a20;
+  transform: scale(1.05);
 }
 
+/* Loading State */
 .loadingContainer {
   text-align: center;
-  padding: 60px 20px;
+  padding: 4rem;
 }
 
 .loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #ff6b35;
+  border-radius: 50%;
   width: 50px;
   height: 50px;
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #ff6b35;
-  border-radius: 50%;
-  margin: 0 auto 20px;
   animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
 }
 
 @keyframes spin {
@@ -130,51 +127,50 @@
   100% { transform: rotate(360deg); }
 }
 
+/* Error State */
 .errorContainer {
   text-align: center;
-  padding: 60px 20px;
+  padding: 4rem;
+  color: #666;
+}
+
+.errorContainer h2 {
+  color: #ff6b35;
+  margin-bottom: 1rem;
 }
 
 .retryButton {
-  background: #ff6b35;
+  background-color: #ff6b35;
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 6px;
-  margin-top: 20px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 1rem;
+  margin-top: 1rem;
   transition: all 0.3s ease;
 }
 
 .retryButton:hover {
-  background: #ff5a1f;
-  transform: translateY(-2px);
+  background-color: #e35a20;
 }
 
+/* No Results State */
 .noResults {
   text-align: center;
-  padding: 60px 20px;
-}
-
-.noResults img {
-  width: 200px;
-  margin-bottom: 30px;
-  opacity: 0.8;
+  padding: 4rem;
+  color: #666;
 }
 
 .noResults h2 {
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 }
 
-.noResults p {
-  color: #666;
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
   .searchPage {
-    padding: 20px 10px;
+    padding: 1rem;
   }
 
   .searchHeader h1 {
@@ -182,7 +178,23 @@
   }
 
   .searchResults {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .imageContainer {
+    height: 200px;
+  }
+
+  .productInfo {
+    padding: 1rem;
+  }
+
+  .price {
+    font-size: 1.25rem;
+  }
+
+  .addToCartBtn {
+    padding: 0.5rem 1rem;
   }
 }
