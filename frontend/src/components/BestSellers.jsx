@@ -28,7 +28,7 @@ const BestSellers = () => {
 
   const addToCart = async (productId) => {
     try {
-      await axios.post(`http://localhost:1000/api/cart/${userId}`, {
+      await axios.post(`https://eatbetterbackend.onrender.com/api/cart/${userId}`, {
         productId,
         quantity: 1,
       });
