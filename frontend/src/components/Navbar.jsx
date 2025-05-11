@@ -17,10 +17,6 @@ const Navbar = () => {
     navigate('/register');
   };
 
-  const handleContactClick=()=>{
-    navigate('/contactus');
-  }
-  
   const handleLoginClick = () => {
     navigate('/login');
   };
@@ -47,14 +43,14 @@ const Navbar = () => {
           <div className={styles.navContent}>
             
             {/* Search Icon and Expandable Search Box */}
-            <div className={styles.searchContainer}>
-              <FontAwesomeIcon 
-                icon={faSearch} 
-                className={styles.searchIcon}
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-              />
-              {isSearchOpen && (
-                <div className={styles.expandedSearch}>
+            <FontAwesomeIcon 
+              icon={faSearch} 
+              className={styles.searchIcon}
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+            />
+            {isSearchOpen && (
+              <div className={styles.expandedSearch}>
+                <div className={styles.searchInputWrapper}>
                   <input
                     type="text"
                     placeholder="Search..."
@@ -66,9 +62,14 @@ const Navbar = () => {
                     }}
                     autoFocus
                   />
+                  <FontAwesomeIcon 
+                    icon={faSearch} 
+                    className={styles.searchInputIcon}
+                    onClick={handleSearch}
+                  />
                 </div>
-              )}
-            </div>
+              </div>
+            )}
 
             <div className={styles.mainNav}>
               <a href="#bestseller" className={styles.link}>BESTSELLERS</a>
@@ -83,7 +84,7 @@ const Navbar = () => {
 
             <div className={styles.mainNav}>
               <a href="#story" className={styles.link}>OUR STORY</a>
-              <a href="#contact"  onClick={handleContactClick} className={styles.link}>CONTACT US</a>
+              <a href="#contact" className={styles.link}>CONTACT US</a>
             </div>
 
             <div className={styles.navIcons}>
